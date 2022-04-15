@@ -1,6 +1,6 @@
 # 图片/视频base64编解码
 
-'''
+```python
 import cv2
 import base64
 import numpy as np
@@ -30,7 +30,7 @@ def getFrames(url, frame_ids):
                 imgs.append(image)
         cap.release()
         
-#         print(imgs)
+        print(imgs)
         if len(imgs) == 0:
             imgs.append(first_image)
 
@@ -52,4 +52,4 @@ def parseB64(a):
     return image_buffer
 
 a = getFrames(url, '1,30')
-'''
+```
