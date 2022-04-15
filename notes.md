@@ -1,6 +1,6 @@
 # 图片/视频base64编解码
 
-'''python
+'''
 import cv2
 import base64
 import numpy as np
