@@ -54,6 +54,6 @@ def parseB64(a):
 a = getFrames(url, '1,30')
 ```
 
-# tf结合tornado/flask等web框架报错
+# keras多线程机制与tornado/flask多线程冲突
 
 https://blog.csdn.net/qq_39564555/article/details/95475871
