@@ -57,3 +57,10 @@ a = getFrames(url, '1,30')
 # keras多线程机制与tornado/flask多线程冲突
 
 https://blog.csdn.net/qq_39564555/article/details/95475871
+
+# hive/pyspark窗口函数
+
+当为聚合函数时，如果使用order by，则窗口计算只到当前行！
+
+            imgs.append(first_image)juh e
+            imgs.append(first_image)
