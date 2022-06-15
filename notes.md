@@ -64,3 +64,13 @@ https://blog.csdn.net/qq_39564555/article/details/95475871
 
             imgs.append(first_image)juh e
             imgs.append(first_image)
+            
+# coalesce导致窄依赖问题
+
+假设RDD有N个分区，需要重新划分成M个分区：
+
+N < M: 一般情况下N个分区有数据分布不均匀的状况，利用HashPartitioner函数将数据重新分区为M个，这时需要将shuffle设置为true。因为重分区前后相当于宽依赖，会发生shuffle过程，此时可以使用coalesce(shuffle=true)，或者直接使用repartition()。
+
+如果N > M并且N和M相差不多(假如N是1000，M是100): 那么就可以将N个分区中的若干个分区合并成一个新的分区，最终合并为M个分区，这是前后是窄依赖关系，可以使用coalesce(shuffle=false)。
+
+如果 N> M并且两者相差悬殊: 这时如果将shuffle设置为false，父子ＲＤＤ是窄依赖关系，他们同处在一个Ｓｔａｇｅ中，就可能造成spark程序的并行度不够，从而影响性能，如果在M为1的时候，为了使coalesce之前的操作有更好的并行度，可以将shuffle设置为true。
