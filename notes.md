@@ -74,3 +74,16 @@ N < M: 一般情况下N个分区有数据分布不均匀的状况，利用HashPa
 如果N > M并且N和M相差不多(假如N是1000，M是100): 那么就可以将N个分区中的若干个分区合并成一个新的分区，最终合并为M个分区，这是前后是窄依赖关系，可以使用coalesce(shuffle=false)。
 
 如果 N> M并且两者相差悬殊: 这时如果将shuffle设置为false，父子ＲＤＤ是窄依赖关系，他们同处在一个Ｓｔａｇｅ中，就可能造成spark程序的并行度不够，从而影响性能，如果在M为1的时候，为了使coalesce之前的操作有更好的并行度，可以将shuffle设置为true。
+
+# sql序列保序拼接
+```sql
+                   regexp_replace(
+                     concat_ws('|',
+                       sort_array(
+                         collect_list(
+                           concat_ws(':',lpad(cast(rk as string),2,'0'),cast(spandays as string))
+                         )
+                       )
+                     ),
+                   '\\d+\\:','') day_list
+```
